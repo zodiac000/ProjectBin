@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import java.io.File;
 //update2
+//2nd update comments
 public class MainActivity extends AppCompatActivity {
 
     private final int VIDEO_REQUEST_CODE = 100;
