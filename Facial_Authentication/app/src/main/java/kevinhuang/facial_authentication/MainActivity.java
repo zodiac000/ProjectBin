@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.io.File;
 //update2
 //some new comment from bin
-//aimable's test
+//aimable's test go
 public class MainActivity extends AppCompatActivity {
 
     private final int VIDEO_REQUEST_CODE = 100;
