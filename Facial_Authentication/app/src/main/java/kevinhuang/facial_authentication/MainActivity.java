@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.io.File;
 //update2
-//2nd update comments
+//some new comment from bin
 public class MainActivity extends AppCompatActivity {
 
     private final int VIDEO_REQUEST_CODE = 100;
@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void capturePicture(View view){
 
-        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent camera_intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        this.startActivity(camera_intent);
         File video_file = getFilepath();
         Uri video_uri = Uri.fromFile(video_file);
         camera_intent.putExtra(MediaStore.EXTRA_OUTPUT, video_uri);
