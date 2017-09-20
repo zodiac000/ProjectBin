@@ -12,6 +12,7 @@ import java.io.File;
 //update2
 //some new comment from bin
 //aimable's test go
+//Kevin
 public class MainActivity extends AppCompatActivity {
 
     private final int VIDEO_REQUEST_CODE = 100;
