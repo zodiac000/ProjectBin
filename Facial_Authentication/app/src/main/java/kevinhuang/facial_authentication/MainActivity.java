@@ -9,10 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
-//update2
-//some new comment from bin
-//aimable's test go
-//Kevin
+
 public class MainActivity extends AppCompatActivity {
 
     private final int VIDEO_REQUEST_CODE = 100;
@@ -40,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == VIDEO_REQUEST_CODE){
             if (resultCode == RESULT_OK)
             {
-                Toast.makeText(getApplicationContext(), "Video Successfully Recorded", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Pictures Successfully Captured", Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(getApplicationContext(), "Video Capture Failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Picture Capture Failed", Toast.LENGTH_LONG).show();
             }
         }
     }
