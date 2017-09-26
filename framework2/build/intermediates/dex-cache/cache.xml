@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_4818bbbf201b912d0977d7a74e702d5531db1a1e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/.android/build-cache/a22fd9ac957197b8b9024113e22816ca2b4e2cb5/output/jars/libs/internal_impl-23.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.3.0_bba3619459bd52be89d4954377722dbf85b5ebbb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/.android/build-cache/958b8fd8ef0c54315f019f1f7c6e8447e04a5b55/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="67d4db303feebf6bb57249ce10e35728e27f9ae5">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_db02a68a210933d32fe064b0c26a559df15dbf72/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/.android/build-cache/44f199a655b3bd8b4e11519b3d592ca4b81dd902/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="08b7bb0240c9df70b9af7c07496023df477d2640">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_fe985fa379d219a8f0a6405ee7ecfcbcd2774aa7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/.android/build-cache/5605f3f90c99c0d6437ede5c2c6570170d11f06a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7b268b9af6ea8c5d5ef92036a3a7c665684f923b">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_bbe61f2d9bc6c671a458e03aade353852bbb8775/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.3.0/support-annotations-23.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.3.0_e543d9838c795a49ec10e22dd50c8f6075cc6548/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/.android/build-cache/a22fd9ac957197b8b9024113e22816ca2b4e2cb5/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_345f76c434401ec43f32ccdcabdb8c5785cadf68/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/.android/build-cache/18f5c52a01156f8091fd8bb263fd293fe465835a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e998e2f06ff86c8a39b5d9220b0eb676749795d5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/.android/build-cache/9c44afe665248264a68b095450b83c5d14b279f1/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ab1eda6785c476fa50c1f0dd96096f7caae5759a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/.android/build-cache/86f25476e2ae0e4a4cebd38f7f128121f5339e0b/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ae789c24d9f83dc01ae5207b52554917119aaf07/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f9f4a7af719d3f397a61566dff3b0f79a8aa186d">
+        <dex dex="/Users/Bin/Documents/workspace/Android-Face-Recognition-with-Deep-Learning-Test-Framework/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_97e80c65e085704e50d05ebd128f70ce4cc7f210/classes.dex" />
+    </item>
+
+</items>
