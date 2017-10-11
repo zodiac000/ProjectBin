@@ -1,2 +1,0 @@
-# HonoursProject
-Facial Authentication app
