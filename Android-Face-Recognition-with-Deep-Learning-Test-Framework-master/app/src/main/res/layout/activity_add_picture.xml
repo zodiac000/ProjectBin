@@ -22,7 +22,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_centerInParent="true"
-        tools:context="ch.zhaw.facerecognition.Activities.AddPersonActivity">
+        tools:context="ch.zhaw.facerecognition.Activities.AddPictureActivity">
 
         <EditText
             android:layout_width="match_parent"

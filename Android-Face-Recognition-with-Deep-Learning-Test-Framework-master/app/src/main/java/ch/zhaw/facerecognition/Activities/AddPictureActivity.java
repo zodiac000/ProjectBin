@@ -26,15 +26,15 @@ import android.widget.ToggleButton;
 
 import java.io.File;
 
-import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 import ch.zhaw.facerecognition.R;
+import ch.zhaw.facerecognitionlibrary.Helpers.FileHelper;
 
-public class AddPersonActivity extends Activity {
+public class AddPictureActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_person);
+        setContentView(R.layout.activity_add_picture);
 
         final ToggleButton btnTrainingTest = (ToggleButton)findViewById(R.id.btnTrainingTest);
         final ToggleButton btnReferenceDeviation = (ToggleButton)findViewById(R.id.btnReferenceDeviation);
@@ -68,8 +68,8 @@ public class AddPersonActivity extends Activity {
 
                 if(btnTrainingTest.isChecked()){
                     // Add photos to "Test" folder
-                    if(isNameAlreadyUsed(new FileHelper().getTestList(), name)){
-                        Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
+                    if(!isNameAlreadyUsed(new FileHelper().getTestList(), name)){
+                        Toast.makeText(getApplicationContext(), "This name is not used. Please choose another one.", Toast.LENGTH_SHORT).show();
                     } else {
                         intent.putExtra("Folder", "Test");
                         if(btnReferenceDeviation.isChecked()){
@@ -82,8 +82,8 @@ public class AddPersonActivity extends Activity {
                 } else {
                     // Add photos to "Training" folder
 
-                    if(isNameAlreadyUsed(new FileHelper().getTrainingList(), name)){
-                        Toast.makeText(getApplicationContext(), "This name is already used. Please choose another one.", Toast.LENGTH_SHORT).show();
+                    if(!isNameAlreadyUsed(new FileHelper().getTrainingList(), name)){
+                        Toast.makeText(getApplicationContext(), "This name is not used. Please choose another one.", Toast.LENGTH_SHORT).show();
                     } else {
                         intent.putExtra("Folder", "Training");
                         startActivity(intent);

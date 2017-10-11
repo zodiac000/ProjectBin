@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="Settings"
             android:id="@+id/button_settings"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="1dp"/>
 
         <Button
             style="@android:style/Widget.Holo.Button"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="Add Person"
             android:id="@+id/button_addPerson"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="1dp" />
 
         <Button
             style="@android:style/Widget.Holo.Button"
@@ -60,14 +60,14 @@
             android:text="Detection Test"
             android:enabled="false"
             android:id="@+id/button_detection_test"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="1dp" />
 
         <Button
             style="@android:style/Widget.Holo.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Detection View"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="1dp"
             android:id="@+id/button_detection_view" />
 
         <Button
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:text="Recognition Training"
             android:id="@+id/button_recognition_training"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="1dp" />
 
         <Button
             style="@android:style/Widget.Holo.Button"
@@ -84,14 +84,14 @@
             android:layout_height="wrap_content"
             android:text="Recognition Test"
             android:id="@+id/button_recognition_test"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="1dp" />
 
         <Button
             style="@android:style/Widget.Holo.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Recognition View"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="1dp"
             android:id="@+id/button_recognition_view" />
 
         <Button
@@ -99,8 +99,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="About"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="1dp"
             android:id="@+id/button_about" />
+
+        <Button
+            style="@android:style/Widget.Holo.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Picture"
+            android:layout_marginBottom="1dp"
+            android:id="@+id/button_addPicture" />
 
     </LinearLayout>
 </RelativeLayout>
