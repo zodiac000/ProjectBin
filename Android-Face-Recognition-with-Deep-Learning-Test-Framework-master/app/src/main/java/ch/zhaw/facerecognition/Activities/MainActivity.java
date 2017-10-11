@@ -69,14 +69,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button callAddPicture = (Button)findViewById(R.id.button_addPicture);
-        callAddPicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), AddPictureActivity.class));
-            }
-        });
-
         FileHelper fh = new FileHelper();
 
         Button callDetectionTest = (Button)findViewById(R.id.button_detection_test);

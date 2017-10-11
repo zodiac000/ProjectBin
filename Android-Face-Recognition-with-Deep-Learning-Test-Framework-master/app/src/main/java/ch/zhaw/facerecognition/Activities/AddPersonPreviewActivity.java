@@ -18,7 +18,6 @@ package ch.zhaw.facerecognition.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.Sensor;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.view.SurfaceView;
@@ -42,15 +41,7 @@ import ch.zhaw.facerecognitionlibrary.Helpers.MatOperation;
 import ch.zhaw.facerecognitionlibrary.PreProcessor.PreProcessorFactory;
 import ch.zhaw.facerecognition.R;
 
-import java.text.SimpleDateFormat;
-
-import android.hardware.SensorManager;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.widget.TextView;
-
-
-public class AddPersonPreviewActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2, SensorEventListener {
+public class AddPersonPreviewActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
     public static final int TIME = 0;
     public static final int MANUALLY = 1;
     private CustomCameraView mAddPersonView;
@@ -70,13 +61,6 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
     private boolean front_camera;
     private boolean night_portrait;
     private int exposure_compensation;
-
-    private TextView xTextAccelerometer, yTextAccelerometer, zTextAccelerometer, xTextGyroscope, yTextGyroscope, zTextGyroscope, textLight, textProximity;
-    private Sensor accelerometerSensor;
-    private Sensor gyroscopeSensor;
-    private Sensor lightSensor;
-    private Sensor proximitySensor;
-    private SensorManager sensorManager;
 
     static {
         if (!OpenCVLoader.initDebug()) {
@@ -136,40 +120,6 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
         int maxCameraViewWidth = Integer.parseInt(sharedPref.getString("key_maximum_camera_view_width", "640"));
         int maxCameraViewHeight = Integer.parseInt(sharedPref.getString("key_maximum_camera_view_height", "480"));
         mAddPersonView.setMaxFrameSize(maxCameraViewWidth, maxCameraViewHeight);
-
-
-        // Create our Sensor Manager
-        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-
-        // Accelerometer Sensor
-        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-        // Gyroscope Sensor
-        gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-
-        // Light Sensor
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-
-        //Proximity Sensor
-        proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-
-        // Register sensor Listener
-        sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this, gyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
-        // Assign TextView
-        xTextAccelerometer = (TextView)findViewById(R.id.xTextAccelerometer);
-        yTextAccelerometer = (TextView)findViewById(R.id.yTextAccelerometer);
-        zTextAccelerometer = (TextView)findViewById(R.id.zTextAccelerometer);
-
-        xTextGyroscope = (TextView)findViewById(R.id.xTextGyroscope);
-        yTextGyroscope = (TextView)findViewById(R.id.yTextGyroscope);
-        zTextGyroscope = (TextView)findViewById(R.id.zTextGyroscope);
-
-        textLight = (TextView)findViewById(R.id.textLight);
-
-        textProximity = (TextView)findViewById(R.id.textProximity);
     }
 
     @Override
@@ -212,8 +162,7 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
                     if((faces != null) && (faces.length == 1)){
                         faces = MatOperation.rotateFaces(imgRgba, faces, ppF.getAngleForRecognition());
                         if(((method == MANUALLY) && capturePressed) || (method == TIME)){
-                            String date = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                            MatName m = new MatName(date + "_" + total, img);
+                            MatName m = new MatName(name + "_" + total, img);
                             if (folder.equals("Test")) {
                                 String wholeFolderPath = fh.TEST_PATH + name + "/" + subfolder;
                                 new File(wholeFolderPath).mkdirs();
@@ -272,44 +221,4 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
         if (mAddPersonView != null)
             mAddPersonView.disableView();
     }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy){
-
-    }
-
-
-    @Override
-    public void onSensorChanged(SensorEvent event){
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            xTextAccelerometer.setText("X_accelerometer: " + event.values[0]);
-            yTextAccelerometer.setText("Y: " + event.values[1]);
-            zTextAccelerometer.setText("Z: " + event.values[2]);
-        }
-
-
-        else if(event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-
-            float x = event.values[0];
-            float y = event.values[1];
-            float z = event.values[2];
-
-            xTextGyroscope.setText("X_gyroscope : " + (int)x + " rad/s");
-            yTextGyroscope.setText("Y : " + (int)y + " rad/s");
-            zTextGyroscope.setText("Z : " + (int)z + " rad/s");
-
-        }
-
-        else if(event.sensor.getType() == Sensor.TYPE_LIGHT) {
-
-            textLight.setText("Light: " + event.values[0]);
-        }
-
-        else if(event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-
-            textProximity.setText("Proximity: " + event.values[0]);
-        }
-    }
-
-
 }
