@@ -1,5 +1,5 @@
-Android Face Recognition with Deep Learning
-Copyright 2016 Michael Sladoje and Mike Schälchli.
+﻿Android Face Authentication
+Copyright 2017 David Knox, WenBin Zhang, Kevin Huang and Aimable Muhizi.
 
 This software contains code derived from the following sources:
 
