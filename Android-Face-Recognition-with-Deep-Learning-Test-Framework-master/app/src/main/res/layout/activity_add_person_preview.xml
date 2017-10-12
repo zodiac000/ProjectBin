@@ -38,4 +38,84 @@
         android:layout_centerVertical="true"
         android:visibility="gone"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="X_Accelerometer"
+        android:id="@+id/xTextAccelerometer"
+        android:layout_alignParentTop="true"
+
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Y_Accelerometer"
+        android:id="@+id/yTextAccelerometer"
+        android:layout_below="@+id/xTextAccelerometer"
+        android:layout_alignStart="@+id/xTextAccelerometer"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Z_Accelerometer"
+        android:id="@+id/zTextAccelerometer"
+        android:layout_below="@+id/yTextAccelerometer"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="X_Gyroscope"
+        android:id="@+id/xTextGyroscope"
+
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/zTextAccelerometer"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Y_Gyroscope"
+        android:id="@+id/yTextGyroscope"
+        android:layout_below="@+id/xTextGyroscope"
+        android:layout_alignStart="@+id/xTextGyroscope"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Z_Gyroscope"
+        android:id="@+id/zTextGyroscope"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/yTextGyroscope"
+        android:layout_alignStart="@+id/xTextGyroscope" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Light"
+        android:id="@+id/textLight"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/zTextGyroscope"
+        android:layout_alignStart="@+id/zTextGyroscope" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Proximity"
+        android:id="@+id/textProximity"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textLight"
+        android:layout_alignStart="@+id/textLight" />
 </RelativeLayout>
