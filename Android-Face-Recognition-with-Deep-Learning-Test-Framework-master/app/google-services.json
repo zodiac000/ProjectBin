@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "610626557568",
+    "firebase_url": "https://facial-authentication.firebaseio.com",
+    "project_id": "facial-authentication",
+    "storage_bucket": "facial-authentication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610626557568:android:76dc8d4cf94a6bae",
+        "android_client_info": {
+          "package_name": "ch.zhaw.facerecognition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610626557568-a2i5j527oa17rnpejfhs7heai2fo23vo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ch.zhaw.facerecognition",
+            "certificate_hash": "7cf36006d802584ffb290b1a063bfc019aa11b12"
+          }
+        },
+        {
+          "client_id": "610626557568-856o16lnggedqek7i4pluv7t4fia0ono.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAerZTTEwKPQ1Tcga485ue8JSqxP4rE2NM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610626557568-856o16lnggedqek7i4pluv7t4fia0ono.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
