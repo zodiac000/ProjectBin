@@ -49,6 +49,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class AddPersonPreviewActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2, SensorEventListener {
     public static final int TIME = 0;
@@ -77,6 +80,25 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
     private Sensor lightSensor;
     private Sensor proximitySensor;
     private SensorManager sensorManager;
+
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference usersRef = mDatabase.child("Users");
+
+    private int counter = 0;
+    private int counter2 = 0;
+
+    private double Accel_X = 0.0;
+    private double Accel_Y = 0.0;
+    private double Accel_Z = 0.0;
+
+    private double Angle_X = 0.0;
+    private double Angle_Y = 0.0;
+    private double Angle_Z = 0.0;
+
+    private double light = 0.0;
+
+    private long time;
+    private Date date;
 
     static {
         if (!OpenCVLoader.initDebug()) {
@@ -193,6 +215,7 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
         Mat imgRgba = inputFrame.rgba();
         Mat imgCopy = new Mat();
         imgRgba.copyTo(imgCopy);
+
         // Selfie / Mirror mode
         if(front_camera){
             Core.flip(imgRgba,imgRgba,1);
@@ -213,7 +236,36 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
                         faces = MatOperation.rotateFaces(imgRgba, faces, ppF.getAngleForRecognition());
                         if(((method == MANUALLY) && capturePressed) || (method == TIME)){
                             String date = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                            String date2 = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+                            String time2 = new SimpleDateFormat("HH:mm:ss").format(new Date());
                             MatName m = new MatName(date + "_" + total, img);
+
+                            //Add data to database
+                            DatabaseReference IDRef = usersRef.child(Integer.toString(counter2));
+                            DatabaseReference IDpic = IDRef.child(Integer.toString(counter)).push();
+                            DatabaseReference Inertia = IDpic.child("Inertia");
+                            DatabaseReference I_x = Inertia.child(("x"));
+                            DatabaseReference I_y = Inertia.child(("y"));
+                            DatabaseReference I_z = Inertia.child(("z"));
+                            DatabaseReference Angle = IDpic.child("Angle");
+                            DatabaseReference A_x = Angle.child(("x"));
+                            DatabaseReference A_y = Angle.child(("y"));
+                            DatabaseReference A_z = Angle.child(("z"));
+                            DatabaseReference Light = IDpic.child("Light");
+                            DatabaseReference Date = IDpic.child("Date");
+                            DatabaseReference Time = IDpic.child("Time");
+
+                            I_x.setValue(Accel_X);
+                            I_y.setValue(Accel_Y);
+                            I_z.setValue(Accel_Z);
+                            A_x.setValue(Angle_X);
+                            A_y.setValue(Angle_Y);
+                            A_z.setValue(Angle_Z);
+                            Light.setValue(light);
+                            Date.setValue(date2);
+                            Time.setValue(time2);
+                            counter++;
+
                             if (folder.equals("Test")) {
                                 String wholeFolderPath = fh.TEST_PATH + name + "/" + subfolder;
                                 new File(wholeFolderPath).mkdirs();
@@ -246,7 +298,6 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
                 }
             }
         }
-
         return imgRgba;
     }
 
@@ -285,6 +336,9 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
             xTextAccelerometer.setText("X_accelerometer: " + event.values[0]);
             yTextAccelerometer.setText("Y: " + event.values[1]);
             zTextAccelerometer.setText("Z: " + event.values[2]);
+            Accel_X = event.values[0];
+            Accel_Y = event.values[1];
+            Accel_Z = event.values[2];
         }
 
 
@@ -298,11 +352,16 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
             yTextGyroscope.setText("Y : " + (int)y + " rad/s");
             zTextGyroscope.setText("Z : " + (int)z + " rad/s");
 
+            Angle_X = event.values[0];
+            Angle_Y = event.values[1];
+            Angle_Z = event.values[2];
+
         }
 
         else if(event.sensor.getType() == Sensor.TYPE_LIGHT) {
 
             textLight.setText("Light: " + event.values[0]);
+            light = event.values[0];
         }
 
         else if(event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
