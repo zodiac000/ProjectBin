@@ -4,22 +4,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView mConditionTextView;
-    Button mButtonSunny;
-    Button mButtonFoggy;
+    Button mSubmit;
 
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mConditionRef = mRootRef.child("condition");
+    int counter = 0;
+
+    double inertia_x = 10.0;
+    double inertia_y = 20.0;
+    double inertia_z = 30.0;
+
+    double angle_x = 11.0;
+    double angle_y = 22.0;
+    double angle_z = 33.0;
+
+    double light = 25.0;
+
+
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference usersRef = mDatabase.child("Users");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Get UI elements
-        mConditionTextView = (TextView) findViewById(R.id.textViewCondition);
-        mButtonSunny = (Button)findViewById(R.id.buttonSunny);
-        mButtonFoggy = (Button)findViewById(R.id.buttonFoggy);
+        mSubmit = (Button)findViewById(R.id.btnSubmit);
 
     }
 
@@ -37,32 +43,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
 
-        mConditionRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
-                mConditionTextView.setText(text);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mButtonSunny.setOnClickListener(new View.OnClickListener(){
+        mSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-            mConditionRef.setValue("Sunny");
-        }
+                DatabaseReference IDRef = usersRef.child(Integer.toString(counter)).push();
 
-        });
+                DatabaseReference Inertia = IDRef.child("Inertia");
+                DatabaseReference I_x = Inertia.child(("x"));
+                DatabaseReference I_y = Inertia.child(("y"));
+                DatabaseReference I_z = Inertia.child(("z"));
 
-        mButtonFoggy.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                mConditionRef.setValue("Foggy");
+                DatabaseReference Angle = IDRef.child("Angle");
+                DatabaseReference A_x = Angle.child(("x"));
+                DatabaseReference A_y = Angle.child(("y"));
+                DatabaseReference A_z = Angle.child(("z"));
+
+                DatabaseReference Light = IDRef.child("Light");
+
+                I_x.setValue(inertia_x);
+                I_y.setValue(inertia_y);
+                I_z.setValue(inertia_z);
+
+                A_x.setValue(angle_x);
+                A_y.setValue(angle_y);
+                A_z.setValue(angle_z);
+
+                Light.setValue(light);
+                counter++;
             }
+
         });
     }
 }
