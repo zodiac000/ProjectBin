@@ -241,7 +241,7 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
                             MatName m = new MatName(date + "_" + total, img);
 
                             //Add data to database
-                            DatabaseReference IDRef = usersRef.child(Integer.toString(counter2));
+                            DatabaseReference IDRef = usersRef.child("0");
                             DatabaseReference IDpic = IDRef.child(Integer.toString(counter)).push();
                             DatabaseReference Inertia = IDpic.child("Inertia");
                             DatabaseReference I_x = Inertia.child(("x"));
