@@ -71,4 +71,8 @@ private static final double DESIRED_LEFT_EYE_X = (1.0 - DESIRED_RIGHT_EYE_X);
 ### Resize
 > Libraries used: OpenCV (Mat, Size, Imgproc), ch.zhaw (PreferencesHelper, Command, Preprocessor)
 
+## OpenCV
+### Mat
+Mat is basically a class with two data parts: the matrix header (containing information such as the size of the matrix, the method used for storing, at which address is the matrix stored, and so on) and a pointer to the matrix containing the pixel values (taking any dimensionality depending on the method chosen for storing). The matrix header size is constant, however the size of the matrix itself may vary from image to image and usually is larger by orders of magnitude.
+
 
