@@ -12,7 +12,7 @@ Code has been derived from the following sources:
 - caffe-android-lib - https://github.com/sh1r0/caffe-android-lib
 
 ## Library
-The core functions have been moved to a [separate repository](https://github.com/Qualeams/Android-Face-Recognition-with-Deep-Learning-Library.git) which can be used as an Android library (module).
+The core functions can be found under facial recognition library.
 
 ## App architecture
 ![alt tag](https://github.com/Bin2015/ProjectBin/blob/master/Android-Face-Recognition-with-Deep-Learning-Test-Framework-master/AppArchitecture.png)
@@ -21,27 +21,54 @@ The core functions have been moved to a [separate repository](https://github.com
 ### Viola-Jones-Algorithm
 
 ## Preprocessing
-#### Crop
-> Libraries used:
-> OpenCV: Mat, Rect
-> ch.zhaw: Command, Preprocessor
+### Crop.java
+> Libraries used: OpenCV (Mat, Rect), ch.zhaw (Command, Preprocessor)
 
-This class contains two function
+```java
+/**
+ * Converts images into Mat objects then uses submat to reformat them.
+ * 
+ * @param preProcessor object
+ * @return preProcessor with cropped images
+ */
+```
 
-#### Eye Alignment
+### Eye Alignment.java
+> Libraries used: OpenCV (Mat, MatOfFloat, Point, Size, Imgproc), ch.zhaw (Eyes, Command, Preprocessor)
+```java
+private static final double DESIRED_RIGHT_EYE_X = 0.24;
+private static final double DESIRED_RIGHT_EYE_Y = 0.30;
+private static final double DESIRED_LEFT_EYE_X = (1.0 - DESIRED_RIGHT_EYE_X);
+/**
+ * 
+ * 
+ * @param preProcessor object
+ * @return preProcessor object
+ */
+```
 
-#### Grayscale
+### Grayscale
+> Libraries used: OpenCV (Mat, Imgproc), ch.zhaw (Command, Preprocessor)
 
-#### Gamma Correction
+### Gamma Correction
+> Libraries used: OpenCV (Mat, Core, CvType, Scalar), ch.zhaw (Command, Preprocessor)
 
-#### Difference of Gaussians
+### Difference of Gaussians
+> Libraries used: OpenCV (Mat, MatOfFloat, Point, Size, Imgproc), ch.zhaw (Eyes, Command, Preprocessor)
 
-#### Local Binary Pattern
 
-#### Canny-Filter
+### Local Binary Pattern
+> Libraries used: OpenCV (Mat, Size, Imgproc), ch.zhaw (PreferencesHelper, Command, Preprocessor)
 
-#### Histogram Equalization
 
-#### Resize
+### Canny-Filter
+> Not found.
+
+### Histogram Equalization
+> Libraries used: OpenCV (Mat, CvType, Imgproc), ch.zhaw (Command, Preprocessor)
+
+
+### Resize
+> Libraries used: OpenCV (Mat, Size, Imgproc), ch.zhaw (PreferencesHelper, Command, Preprocessor)
 
 
