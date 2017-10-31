@@ -118,4 +118,16 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/textLight"
         android:layout_alignStart="@+id/textLight" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="compass"
+        android:id="@+id/textCompass"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textProximity"
+        android:layout_alignStart="@+id/textProximity" />
+
+
 </RelativeLayout>
