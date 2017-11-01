@@ -5,12 +5,8 @@ android {
     buildToolsVersion "26.0.2"
 
     defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 21
-        sourceSets.main {
-            jniLibs.srcDir 'src/main/libs'
-            jni.srcDirs = [] //disable automatic ndk-build call
-        }
+        minSdkVersion 21
+        targetSdkVersion 26
     }
 
     buildTypes {
@@ -18,5 +14,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+    }
+    externalNativeBuild {
+
     }
 }
