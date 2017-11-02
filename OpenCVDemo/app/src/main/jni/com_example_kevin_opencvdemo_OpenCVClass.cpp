@@ -1,4 +1,4 @@
-#include "com_example_kevin_opencvdemo_OpenCVClass.h"
+#include <com_example_kevin_opencvdemo_OpenCVClass.h>
 
 JNIEXPORT void JNICALL Java_com_example_kevin_opencvdemo_OpenCVClass_faceDetection
   (JNIEnv *, jclass, jlong addrRgba){

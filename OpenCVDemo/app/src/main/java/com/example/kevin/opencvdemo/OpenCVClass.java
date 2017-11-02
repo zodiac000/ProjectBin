@@ -5,5 +5,5 @@ package com.example.kevin.opencvdemo;
  */
 
 public class OpenCVClass {
-    public native  static void faceDetection(long addrEgba);
+    public native  static void faceDetection(long addrRgba);
 }
