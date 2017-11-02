@@ -19,6 +19,7 @@ import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.JavaCameraView;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         javaCameraView = (JavaCameraView)findViewById(R.id.java_camera_view);
         if (!checkPermission()) {
             requestPermission();
+            javaCameraView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT);
             javaCameraView.setVisibility(SurfaceView.VISIBLE);
             javaCameraView.setCvCameraViewListener(this);
         }
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
     @Override
     public void onCameraViewStarted(int width, int height) {
-        mRgba = new Mat(height, width, CvType.CV_8UC4);
+        mRgba = new Mat(width, height, CvType.CV_8UC4);
 
         //make gray
         //imgGray = new Mat(height, width, CvType.CV_8UC1);
@@ -118,11 +120,14 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRgba = inputFrame.rgba();
+        Mat mRgbaT = mRgba.t();
+        Core.flip(mRgba.t(), mRgbaT, 1);
+        Imgproc.resize(mRgbaT, mRgbaT, mRgba.size());
 
         //make gray
         //Imgproc.cvtColor(mRgba, imgGray, Imgproc.COLOR_RGB2GRAY);
 
-        return mRgba;
+        return mRgbaT;
     }
 
     private boolean checkPermission() {
