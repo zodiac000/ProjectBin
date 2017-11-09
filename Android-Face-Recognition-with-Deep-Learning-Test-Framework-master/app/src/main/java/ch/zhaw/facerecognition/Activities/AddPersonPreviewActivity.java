@@ -49,9 +49,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 
 public class AddPersonPreviewActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2, SensorEventListener {
     public static final int TIME = 0;
@@ -74,31 +71,20 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
     private boolean night_portrait;
     private int exposure_compensation;
 
-    private TextView xTextAccelerometer, yTextAccelerometer, zTextAccelerometer, xTextGyroscope, yTextGyroscope, zTextGyroscope, textLight, textProximity;
+    private TextView xTextAccelerometer, yTextAccelerometer, zTextAccelerometer, xTextGyroscope, yTextGyroscope, zTextGyroscope,
+            textLight, textProximity, textCompass;
     private Sensor accelerometerSensor;
     private Sensor gyroscopeSensor;
     private Sensor lightSensor;
     private Sensor proximitySensor;
+    private Sensor geomagneticFieldSensor;
     private SensorManager sensorManager;
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference usersRef = mDatabase.child("Users");
+    private float[] mGravity = new float[3];
+    private float[] mGeomagnetic = new float[3];
 
-    private int counter = 0;
-    private int counter2 = 0;
-
-    private double Accel_X = 0.0;
-    private double Accel_Y = 0.0;
-    private double Accel_Z = 0.0;
-
-    private double Angle_X = 0.0;
-    private double Angle_Y = 0.0;
-    private double Angle_Z = 0.0;
-
-    private double light = 0.0;
-
-    private long time;
-    private Date date;
+    private final float alpha = 0.97f;
+    private Float azimuth;  // View to draw a compass
 
     static {
         if (!OpenCVLoader.initDebug()) {
@@ -175,11 +161,15 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
         //Proximity Sensor
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 
+        //Geomagnetic field Sensor
+        geomagneticFieldSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
         // Register sensor Listener
         sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, gyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, geomagneticFieldSensor, SensorManager.SENSOR_DELAY_NORMAL);
         // Assign TextView
         xTextAccelerometer = (TextView)findViewById(R.id.xTextAccelerometer);
         yTextAccelerometer = (TextView)findViewById(R.id.yTextAccelerometer);
@@ -188,6 +178,9 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
         xTextGyroscope = (TextView)findViewById(R.id.xTextGyroscope);
         yTextGyroscope = (TextView)findViewById(R.id.yTextGyroscope);
         zTextGyroscope = (TextView)findViewById(R.id.zTextGyroscope);
+
+        textCompass = (TextView)findViewById(R.id.textCompass);
+
 
         textLight = (TextView)findViewById(R.id.textLight);
 
@@ -215,7 +208,6 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
         Mat imgRgba = inputFrame.rgba();
         Mat imgCopy = new Mat();
         imgRgba.copyTo(imgCopy);
-
         // Selfie / Mirror mode
         if(front_camera){
             Core.flip(imgRgba,imgRgba,1);
@@ -236,36 +228,7 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
                         faces = MatOperation.rotateFaces(imgRgba, faces, ppF.getAngleForRecognition());
                         if(((method == MANUALLY) && capturePressed) || (method == TIME)){
                             String date = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                            String date2 = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-                            String time2 = new SimpleDateFormat("HH:mm:ss").format(new Date());
                             MatName m = new MatName(date + "_" + total, img);
-
-                            //Add data to database
-                            DatabaseReference IDRef = usersRef.child("0");
-                            DatabaseReference IDpic = IDRef.child(Integer.toString(counter)).push();
-                            DatabaseReference Inertia = IDpic.child("Inertia");
-                            DatabaseReference I_x = Inertia.child(("x"));
-                            DatabaseReference I_y = Inertia.child(("y"));
-                            DatabaseReference I_z = Inertia.child(("z"));
-                            DatabaseReference Angle = IDpic.child("Angle");
-                            DatabaseReference A_x = Angle.child(("x"));
-                            DatabaseReference A_y = Angle.child(("y"));
-                            DatabaseReference A_z = Angle.child(("z"));
-                            DatabaseReference Light = IDpic.child("Light");
-                            DatabaseReference Date = IDpic.child("Date");
-                            DatabaseReference Time = IDpic.child("Time");
-
-                            I_x.setValue(Accel_X);
-                            I_y.setValue(Accel_Y);
-                            I_z.setValue(Accel_Z);
-                            A_x.setValue(Angle_X);
-                            A_y.setValue(Angle_Y);
-                            A_z.setValue(Angle_Z);
-                            Light.setValue(light);
-                            Date.setValue(date2);
-                            Time.setValue(time2);
-                            counter++;
-
                             if (folder.equals("Test")) {
                                 String wholeFolderPath = fh.TEST_PATH + name + "/" + subfolder;
                                 new File(wholeFolderPath).mkdirs();
@@ -298,6 +261,7 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
                 }
             }
         }
+
         return imgRgba;
     }
 
@@ -331,44 +295,85 @@ public class AddPersonPreviewActivity extends Activity implements CameraBridgeVi
 
 
     @Override
-    public void onSensorChanged(SensorEvent event){
+    public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             xTextAccelerometer.setText("X_accelerometer: " + event.values[0]);
             yTextAccelerometer.setText("Y: " + event.values[1]);
             zTextAccelerometer.setText("Z: " + event.values[2]);
-            Accel_X = event.values[0];
-            Accel_Y = event.values[1];
-            Accel_Z = event.values[2];
-        }
+
+            System.arraycopy(event.values, 0, mGravity, 0, mGravity.length);
 
 
-        else if(event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+        } else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
 
             float x = event.values[0];
             float y = event.values[1];
             float z = event.values[2];
 
-            xTextGyroscope.setText("X_gyroscope : " + (int)x + " rad/s");
-            yTextGyroscope.setText("Y : " + (int)y + " rad/s");
-            zTextGyroscope.setText("Z : " + (int)z + " rad/s");
+            xTextGyroscope.setText("X_gyroscope : " + (int) x + " rad/s");
+            yTextGyroscope.setText("Y : " + (int) y + " rad/s");
+            zTextGyroscope.setText("Z : " + (int) z + " rad/s");
 
-            Angle_X = event.values[0];
-            Angle_Y = event.values[1];
-            Angle_Z = event.values[2];
-
-        }
-
-        else if(event.sensor.getType() == Sensor.TYPE_LIGHT) {
+        } else if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
 
             textLight.setText("Light: " + event.values[0]);
-            light = event.values[0];
-        }
-
-        else if(event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+        } else if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
 
             textProximity.setText("Proximity: " + event.values[0]);
         }
+
+
+        if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD){
+            System.arraycopy(event.values, 0, mGeomagnetic, 0, mGeomagnetic.length);
+            float R[] = new float[9];
+            float I[] = new float[9];
+            boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+            if (success) {
+
+                    float orientation[] = new float[3];
+                    SensorManager.getOrientation(R, orientation);
+                    azimuth = orientation[0]; // orientation contains: azimut, pitch and roll
+                    azimuth = (azimuth + 360) % 360;
+
+                    textCompass.setText("Azimuth: " + String.valueOf(azimuth));
+            }
+
+        }
+
+
+
+//        synchronized (this){
+//            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+//                mGravity[0] = alpha * mGravity[0] + (1-alpha)*event.values[0];
+//                mGravity[1] = alpha * mGravity[1] + (1-alpha)*event.values[1];
+//                mGravity[2] = alpha * mGravity[2] + (1-alpha)*event.values[2];
+//
+//            }
+//            if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+//                mGeomagnetic[0] = alpha * mGeomagnetic[0] + (1-alpha)*event.values[0];
+//                mGeomagnetic[1] = alpha * mGeomagnetic[1] + (1-alpha)*event.values[1];
+//                mGeomagnetic[2] = alpha * mGeomagnetic[2] + (1-alpha)*event.values[2];
+////            textCompass.setText("x_Compass: " + event.values[0]);
+//
+//            }
+//
+////            if (mGravity != null && mGeomagnetic != null) {
+//                float R[] = new float[9];
+//                float I[] = new float[9];
+//                boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+//                if (success) {
+//
+//                    float orientation[] = new float[3];
+//                    SensorManager.getOrientation(R, orientation);
+//                    azimuth = orientation[0]; // orientation contains: azimut, pitch and roll
+//                    azimuth = (azimuth + 360) % 360;
+//
+//                    textCompass.setText(String.valueOf(azimuth));
+//                }
+//        }
+
+//        }
+
+
     }
-
-
 }
