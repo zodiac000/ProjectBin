@@ -1,10 +1,10 @@
-package cl.NicLabs.HomomorphicEncryption;
+package ch.zhaw.facerecognition.Encryption;
 
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-//import android.util.Log;
+import android.util.Log;
 
 public class EncryptedValue implements Serializable {
 
@@ -34,7 +34,7 @@ public class EncryptedValue implements Serializable {
 	 *            proces.
 	 */
 	public EncryptedValue(BigInteger value, EncryptionParameters param) {
-		// Log.d("EncryptedValue", "Encriptacion de valor: " + value);
+		Log.d("EncryptedValue", "Encrypted value: " + value);
 		BigInteger anillo = param.getAnillo();
 		SecureRandom rnd = new SecureRandom();
 		BigInteger r = new BigInteger(anillo.bitLength(), rnd);
@@ -62,8 +62,8 @@ public class EncryptedValue implements Serializable {
 	 *         process.
 	 */
 	public EncryptedValue addValue(EncryptedValue value2) {
-		// Log.d("EncryptedValue",
-		// "Calculo suma de valores (Multiplicacion de Encriptados)");
+		Log.d("EncryptedValue",
+		"add encrypted value (Multiplicacion de Encriptados)");
 		BigInteger first = this.y1.multiply(value2.y1);
 		BigInteger second = this.y2.multiply(value2.y2);
 		return new EncryptedValue(first, second, this.n, this.s);
@@ -79,8 +79,8 @@ public class EncryptedValue implements Serializable {
 	 *         encryption process.
 	 */
 	public EncryptedValue scale(BigInteger factor) {
-		// Log.d("EncryptedValue",
-		// "Calculo multiplicacion por escalar (Calculo exponente de encriptados)");
+		Log.d("EncryptedValue",
+		 "scaled value (Calculo exponente de encriptados)");
 		BigInteger first = this.y1.modPow(factor, this.getAnillo());
 		BigInteger second = this.y2.modPow(factor, this.getAnillo());
 		return new EncryptedValue(first, second, this.n, this.s);
@@ -96,7 +96,7 @@ public class EncryptedValue implements Serializable {
 	 * @return a BigInteger with the real value of the EncryptedValue.
 	 */
 	public BigInteger decrypt(BigInteger secretKey) {
-		// Log.d("EncryptedValue", "Desencriptacion");
+		Log.d("EncryptedValue", "Decryption");
 		BigInteger anillo = this.getAnillo();
 
 		BigInteger ret = this.y1.modPow(secretKey.negate(), anillo);

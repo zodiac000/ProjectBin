@@ -1,4 +1,4 @@
-package cl.NicLabs.HomomorphicEncryption;
+package ch.zhaw.facerecognition.Encryption;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
