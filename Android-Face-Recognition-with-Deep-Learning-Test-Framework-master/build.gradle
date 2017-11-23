@@ -14,6 +14,7 @@ allprojects {
     repositories {
         jcenter()
         maven {
+            //url "https://dl.bintray.com/bin2015/Android-Face-Recognition-Deep-Learning-Library"
             url "http://dl.bintray.com/qualeams/Android-Face-Recognition-Deep-Learning-Library"
         }
         google()
